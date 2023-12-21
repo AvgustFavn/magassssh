@@ -65,13 +65,13 @@ async def button(update: Update, context: CallbackContext) -> None:
 
     if query.data == '11':
         if update.message is not None:
-            await update.message.reply_text(text='☎️💖 Наш номер для связи по всем вопросам: +79181724444\nА так же наш'
+            await update.message.reply_text(text='☎️💖 Наш номер для связи по всем вопросам: whatsup +79181724444\nА так же наш'
                                                  ' канал: https://t.me/mashgamash \nВк: https://vk.com/mash.gamash \n'
                                                  '#отзывы о нас собраны в наших сообществах ВК '
                                                  'https://vk.com/album-32162783_285703116 и ИГ '
                                                  'https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTQ0Nzk3NTkyMDMzMzQ3?story_media_id=2901076547017246090&igshid=YmMyMTA2M2Y=')
         elif update.callback_query is not None:
-            await update.callback_query.message.reply_text(text='☎️💖 Наш номер для связи по всем вопросам: +79181724444\nА так же наш'
+            await update.callback_query.message.reply_text(text='☎️💖 Наш номер для связи по всем вопросам: whatsup +79181724444\nА так же наш'
                                                  ' канал: https://t.me/mashgamash \nВк: https://vk.com/mash.gamash \n'
                                                  '#отзывы о нас собраны в наших сообществах ВК '
                                                  'https://vk.com/album-32162783_285703116 и ИГ '
@@ -368,9 +368,9 @@ async def button(update: Update, context: CallbackContext) -> None:
 
     elif query.data.startswith('supp'):
         if update.message is not None:
-            await update.message.reply_text(text='Напишите нам в поддержку по номеру: +79181724444 ⭐️🌛')
+            await update.message.reply_text(text='Напишите нам в поддержку по номеру whatsup: +79181724444 ⭐️🌛')
         elif update.callback_query is not None:
-            await update.callback_query.message.reply_text(text='Напишите нам в поддержку по номеру: +79181724444 ⭐️🌛')
+            await update.callback_query.message.reply_text(text='Напишите нам в поддержку по номеру whatsup: +79181724444 ⭐️🌛')
 
     elif query.data.startswith('pay_'):
         user = update.effective_user
@@ -378,12 +378,12 @@ async def button(update: Update, context: CallbackContext) -> None:
         orde = int(orde)
         o = session.query(Orders).filter(Orders.id == orde).first()
         if update.message is not None:
-            await update.message.reply_text(text=f'Для оплаты пройдитесь по пунктам:\n1) Пришлите ровно указанную сумму на эту карту, сохраните чек\n'
-                                                 f'2) Напишите нашему менеджеру по этому нику @ с приложенным номером заказа {o.id} ⭐️🌛\n'
+            await update.message.reply_text(text=f'Для оплаты пройдитесь по пунктам:\n1) Пришлите ровно указанную сумму на эту карту: 5469400999485035, сохраните чек\n'
+                                                 f'2) Напишите нашему менеджеру в whatsup +79181724444 с приложенным номером заказа {o.id} ⭐️🌛\n'
                                                  f'3) Далее ваш статус заказа измениться и с вами обсудят детали')
         elif update.callback_query is not None:
-            await update.callback_query.message.reply_text(text=f'Для оплаты пройдитесь по пунктам:\n1) Пришлите ровно указанную сумму на эту карту, сохраните чек\n'
-                                                 f'2) Напишите нашему менеджеру по этому нику @ с приложенным номером заказа {o.id} ⭐️🌛\n'
+            await update.callback_query.message.reply_text(text=f'Для оплаты пройдитесь по пунктам:\n1) Пришлите ровно указанную сумму на эту карту: 5469400999485035, сохраните чек\n'
+                                                 f'2) Напишите нашему менеджеру в whatsup с приложенным номером заказа {o.id} ⭐️🌛\n'
                                                  f'3) Далее ваш статус заказа измениться и с вами обсудят детали')
 
     elif query.data.startswith('ord_'):
