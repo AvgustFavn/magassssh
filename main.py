@@ -1,6 +1,6 @@
 import asyncio
-import logging
 import re
+from random import randint
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler, ApplicationBuilder, \
@@ -15,13 +15,11 @@ async def start(update: Update, context: CallbackContext) -> None:
         keyboard = [
             [InlineKeyboardButton("Как заказать?", callback_data='1')],
              [InlineKeyboardButton("Мои заказы", callback_data='2')],
-            [InlineKeyboardButton("Купить товар", callback_data='3')],
         ]
     else:
         keyboard = [
             [InlineKeyboardButton("Как заказать?", callback_data='1')],
             [InlineKeyboardButton("Мои заказы", callback_data='2')],
-            [InlineKeyboardButton("Купить товар", callback_data='3')],
             [InlineKeyboardButton("Посмотреть заказы", callback_data='4')],
         ]
 
@@ -38,13 +36,58 @@ async def button(update: Update, context: CallbackContext) -> None:
     await query.answer()
     if query.data == '1':
         if update.message is not None:
-            await update.message.reply_text(text='Как заказать? Для заказа нажмите "Купить товар", Напишите товары и их '
-                                                 'цену общую, а так же размеры, цвет, если есть возможность их выбрать. '
-                                                 'Менеджер свяжется с вами для уточнения заказа. При возникновения дополнительных вопросов напишите нашему менеджеру: +7 (918) 112-02-33')
+            await update.message.reply_text(text='Как заказать?\n⭐️ Заскриньте товар, который вы хотите купить и '
+                                                 'отправьте в бота, вместе с описанием цвета и размера этого товара '
+                                                 '(если есть возможность выбрать).')
+
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\1.jpg', "rb")), chat_id=user.id)
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\2.jpg', "rb")), chat_id=user.id)
+
+            await update.message.reply_text(text='⚠️⛔️ВНИМАНИЕ: каждое сообщение - один '
+                                                 'товар и одно фото, отправленные одним сообщением!⚠️⛔️')
+
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\правильно.jpg', "rb")), chat_id=user.id, caption='Как правильно:')
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\неправильно.jpg', "rb")), chat_id=user.id,
+                                         caption='Как НЕ правильно:')
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\заказы.jpg', "rb")), chat_id=user.id,
+                                         caption='Так же вы можете посмотреть свои заказы:')
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\заказ.jpg', "rb")), chat_id=user.id,
+                                         caption='Вверху номер вашего заказа\nСтатус заказа может быть "Создан" и '
+                                                 '"Выкуплен". Создан - этап обговаривания о товаре с продавцом, до того '
+                                                 'как продавец купит ваш заказ и отправит его. Выкуплен - значит '
+                                                 'продавец уже купил его и скоро его вам его отправит')
+
+            await update.message.reply_text(text='Для дополнительных вопросов свяжитесь с менеджером: Вотсап: +7 (918) '
+                                                 '112-02-33 или продавцом: тг: @avelneda')
+
+
         elif update.callback_query is not None:
-            await update.callback_query.message.reply_text(text='Как заказать? Для заказа нажмите "Купить товар", Напишите товары и их '
-                                                 'цену общую, а так же размеры, цвет, если есть возможность их выбрать. '
-                                                 'Менеджер свяжется с вами для уточнения заказа. При возникновения дополнительных вопросов напишите нашему менеджеру: +7 (918) 112-02-33')
+            await update.callback_query.message.reply_text(text='Так же вы можете посмотреть свои заказы:')
+
+            await update.callback_query.message.reply_text(text='Как заказать?\n⭐️ Заскриньте товар, который вы хотите купить и '
+                                                 'отправьте в бота, вместе с описанием цвета и размера этого товара '
+                                                 '(если есть возможность выбрать).')
+
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\1.jpg', "rb")), chat_id=user.id)
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\2.jpg', "rb")), chat_id=user.id)
+
+            await update.callback_query.message.reply_text(text='⚠️⛔️ВНИМАНИЕ: каждое сообщение - один '
+                                                 'товар и одно фото, отправленные одним сообщением!⚠️⛔️')
+
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\правильно.jpg', "rb")), chat_id=user.id,
+                                         caption='Как правильно:')
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\неправильно.jpg', "rb")), chat_id=user.id,
+                                         caption='Как НЕ правильно:')
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\заказы.jpg', "rb")), chat_id=user.id,
+                                         caption='Так же вы можете посмотреть свои заказы:')
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\заказ.jpg', "rb")), chat_id=user.id,
+                                         caption='Вверху номер вашего заказа\nСтатус заказа может быть "Создан" и '
+                                                 '"Выкуплен". Создан - этап обговаривания о товаре с продавцом, до того '
+                                                 'как продавец купит ваш заказ и отправит его. Выкуплен - значит '
+                                                 'продавец уже купил его и скоро его вам его отправит')
+
+            await update.callback_query.message.reply_text(text='Для дополнительных вопросов свяжитесь с менеджером: Вотсап: +7 (918) '
+                                                 '112-02-33 или продавцом: тг: @avelneda')
 
     if query.data == '2':
         ords = session.query(Orders).filter(Orders.username_customer == user.username).all()
@@ -59,11 +102,11 @@ async def button(update: Update, context: CallbackContext) -> None:
             await update.callback_query.message.reply_text(text='Ваши заказы: ', reply_markup=reply_markup)
     if query.data == '3':
         if update.message is not None:
-            await update.message.reply_text(text='Напишите товары и их цену общую, а так же размеры, цвет, если есть '
-                                                 'возможность их выбрать')
+            await update.message.reply_text(text='Напишите размер, цвет, если есть '
+                                                 'возможность их выбрать, и только одно фото товара. Каждый товар нужно заказывать через бот отдельно.')
         elif update.callback_query is not None:
-            await update.callback_query.message.reply_text(text='Напишите товары и их цену общую, а так же размеры, цвет, если есть '
-                                                 'возможность их выбрать')
+            await update.callback_query.message.reply_text(text='Напишите размер, цвет, если есть '
+                                                 'возможность их выбрать, и только одно фото товара. Каждый товар нужно заказывать через бот отдельно.')
 
     if query.data == '4':
         ords = session.query(Orders).filter(Orders.status == 'Создан').all()
@@ -75,9 +118,9 @@ async def button(update: Update, context: CallbackContext) -> None:
             keyboard.append([InlineKeyboardButton(f"Заказ # {o.id}", callback_data=f'order_{o.id}')])
         reply_markup = InlineKeyboardMarkup(keyboard)
         if update.message is not None:
-            await update.message.reply_text(text='Заказы: ', reply_markup=reply_markup)
+            await update.message.reply_text(text='Чтобы найти заказы от определенного покупателя, напишите его никнейм в бот, пример: @username', reply_markup=reply_markup)
         elif update.callback_query is not None:
-            await update.callback_query.message.reply_text(text='Заказы: ', reply_markup=reply_markup)
+            await update.callback_query.message.reply_text(text='Чтобы найти заказы от определенного покупателя, напишите его никнейм в бот, пример: @username', reply_markup=reply_markup)
 
     if 'order_' in query.data:
         id_order = int(query.data.replace('order_', ''))
@@ -92,14 +135,16 @@ async def button(update: Update, context: CallbackContext) -> None:
             keyboard.append([InlineKeyboardButton("Удалить заказ", callback_data=f'delord_{order.id}')])
             keyboard.append([InlineKeyboardButton("Сделать заметку для заказа", callback_data=f'donote_{order.id}')])
             reply_markup = InlineKeyboardMarkup(keyboard)
-            if update.message is not None:
-                await update.message.reply_text(
-                    text=text, reply_markup=reply_markup)
-            elif update.callback_query is not None:
-                await update.callback_query.message.reply_text(
-                    text=text, reply_markup=reply_markup)
-            # await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\{order.check}', "rb")), text=text,
-            #                          chat_id=user.id, reply_markup=reply_markup)
+            if order.check:
+                await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\{order.check}', "rb")), caption=text,
+                                         chat_id=user.id, reply_markup=reply_markup)
+            else:
+                if update.message is not None:
+                    await update.message.reply_text(
+                        text=text, reply_markup=reply_markup)
+                elif update.callback_query is not None:
+                    await update.callback_query.message.reply_text(
+                        text=text, reply_markup=reply_markup)
         else:
             keyboard = [
                 [InlineKeyboardButton("Написать по-поводу заказа", callback_data=f'talkadmin')]
@@ -174,23 +219,37 @@ async def new_order(update: Update, context: CallbackContext):
             await update.message.reply_text(text=f'Вы добавили заметку в заказ')
         elif update.callback_query is not None:
             await update.callback_query.message.reply_text(text=f'Вы добавили заметку в заказ')
+
+    elif '@' in mess:
+        user = mess.replace('@', '')
+        ords = session.query(Orders).filter(Orders.status == 'Создан', Orders.username_customer == user).all()
+        keyboard = []
+        for o in ords:
+            keyboard.append([InlineKeyboardButton(f"Заказ # {o.id} НОВЫЙ!", callback_data=f'order_{o.id}')])
+        ords = session.query(Orders).filter(Orders.status != 'Создан', Orders.username_customer == user).all()
+        for o in ords:
+            keyboard.append([InlineKeyboardButton(f"Заказ # {o.id}", callback_data=f'order_{o.id}')])
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        if update.message is not None:
+            await update.message.reply_text(text=f'Заказы от {user}', reply_markup=reply_markup)
+        elif update.callback_query is not None:
+            await update.callback_query.message.reply_text(text=f'Заказы от {user}', reply_markup=reply_markup)
+
     else:
 
-        # try:
-        #     photo = update.message.photo[-1]
-        # except:
-        #     photo = None
-        # file_path = None
-        # if photo:
-        #     file_info = await context.bot.get_file(photo.file_id)
-        #     id = file_info.file_id
-        #     file_path = f"photos/{id}.jpg"  # Укажите путь и имя файла
-        #     file_bytes = await file_info.download_as_bytearray()
-        #     with open(file_path, "wb") as f:
-        #         f.write(file_bytes)
-
         order = Orders(user_id=user.id, username_customer=user.username, text_about=mess)
-        print(order)
+        # Проверяем, есть ли в сообщении медиа-файл
+        if update.message.photo:
+            photo = update.message.photo[-1]
+            if photo:
+                file_info = await context.bot.get_file(photo.file_id)
+                id = file_info.file_id
+                file_path = f"photos/{str(randint(1, 10000))}.jpg"  # Укажите путь и имя файла
+                file_bytes = await file_info.download_as_bytearray()
+                with open(file_path, "wb") as f:
+                    f.write(file_bytes)
+                order.check = file_path
+
         session.add(order)
         session.commit()
         if update.message is not None:
