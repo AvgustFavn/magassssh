@@ -40,18 +40,18 @@ async def button(update: Update, context: CallbackContext) -> None:
                                                  'отправьте в бота, вместе с описанием цвета и размера этого товара '
                                                  '(если есть возможность выбрать).')
 
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\1.jpg', "rb")), chat_id=user.id)
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\2.jpg', "rb")), chat_id=user.id)
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/1.jpg', "rb")), chat_id=user.id)
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/2.jpg', "rb")), chat_id=user.id)
 
             await update.message.reply_text(text='⚠️⛔️ВНИМАНИЕ: каждое сообщение - один '
                                                  'товар и одно фото, отправленные одним сообщением!⚠️⛔️')
 
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\правильно.jpg', "rb")), chat_id=user.id, caption='Как правильно:')
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\неправильно.jpg', "rb")), chat_id=user.id,
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/правильно.jpg', "rb")), chat_id=user.id, caption='Как правильно:')
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/неправильно.jpg', "rb")), chat_id=user.id,
                                          caption='Как НЕ правильно:')
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\заказы.jpg', "rb")), chat_id=user.id,
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/заказы.jpg', "rb")), chat_id=user.id,
                                          caption='Так же вы можете посмотреть свои заказы:')
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\заказ.jpg', "rb")), chat_id=user.id,
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/заказ.jpg', "rb")), chat_id=user.id,
                                          caption='Вверху номер вашего заказа\nСтатус заказа может быть "Создан" и '
                                                  '"Выкуплен". Создан - этап обговаривания о товаре с продавцом, до того '
                                                  'как продавец купит ваш заказ и отправит его. Выкуплен - значит '
@@ -68,19 +68,19 @@ async def button(update: Update, context: CallbackContext) -> None:
                                                  'отправьте в бота, вместе с описанием цвета и размера этого товара '
                                                  '(если есть возможность выбрать).')
 
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\1.jpg', "rb")), chat_id=user.id)
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\2.jpg', "rb")), chat_id=user.id)
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/1.jpg', "rb")), chat_id=user.id)
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/2.jpg', "rb")), chat_id=user.id)
 
             await update.callback_query.message.reply_text(text='⚠️⛔️ВНИМАНИЕ: каждое сообщение - один '
                                                  'товар и одно фото, отправленные одним сообщением!⚠️⛔️')
 
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\правильно.jpg', "rb")), chat_id=user.id,
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/правильно.jpg', "rb")), chat_id=user.id,
                                          caption='Как правильно:')
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\неправильно.jpg', "rb")), chat_id=user.id,
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/неправильно.jpg', "rb")), chat_id=user.id,
                                          caption='Как НЕ правильно:')
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\заказы.jpg', "rb")), chat_id=user.id,
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/заказы.jpg', "rb")), chat_id=user.id,
                                          caption='Так же вы можете посмотреть свои заказы:')
-            await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\заказ.jpg', "rb")), chat_id=user.id,
+            await context.bot.send_photo(photo=(open(f'{BASE_DIR}/images_preview/заказ.jpg', "rb")), chat_id=user.id,
                                          caption='Вверху номер вашего заказа\nСтатус заказа может быть "Создан" и '
                                                  '"Выкуплен". Создан - этап обговаривания о товаре с продавцом, до того '
                                                  'как продавец купит ваш заказ и отправит его. Выкуплен - значит '
@@ -136,7 +136,7 @@ async def button(update: Update, context: CallbackContext) -> None:
             keyboard.append([InlineKeyboardButton("Сделать заметку для заказа", callback_data=f'donote_{order.id}')])
             reply_markup = InlineKeyboardMarkup(keyboard)
             if order.check:
-                await context.bot.send_photo(photo=(open(f'{BASE_DIR}\\{order.check}', "rb")), caption=text,
+                await context.bot.send_photo(photo=(open(f'{BASE_DIR}/{order.check}', "rb")), caption=text,
                                          chat_id=user.id, reply_markup=reply_markup)
             else:
                 if update.message is not None:
